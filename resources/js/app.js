@@ -5,8 +5,12 @@ import '@mdi/font/css/materialdesignicons.css'
 
 import 'vuetify/dist/vuetify.min.css';
 import App from './Pages/App';
+window.axios = require("axios");
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
-
+window.axios.defaults.headers.common = {
+    'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+};
 
 Vue.use(Vuetify);
 Vue.use(Vuelidate)

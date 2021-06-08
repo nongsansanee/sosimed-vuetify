@@ -10,7 +10,7 @@
                       Login ด้วย Siriraj AD (ใช้ User ID และ Password เดี่ยวกับ SiIT Enterprise ปัจจุบัน)
                     </div>
                         <v-card-text>
-                            <form>
+                            <form >
                                 <v-text-field
                                     v-model="username"
                                     :error-messages="usernameErrors"
@@ -34,7 +34,7 @@
                                     class="mr-4"
                                     @click="submit"
                                 >
-                                submit
+                                Login
                                 </v-btn>
                                 <v-btn color="blue-grey lighten-3" @click="clear">
                                  clear
@@ -53,7 +53,7 @@
 </template>
 
 <script>
- import { validationMixin } from 'vuelidate'
+import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 
   export default {
@@ -88,7 +88,26 @@ import { required } from 'vuelidate/lib/validators'
 
     methods: {
       submit () {
+       
         this.$v.$touch()
+              //alert('aaa='+ this.username)
+              // axios.get('/welcome')
+              //      .then(response => {alert('success yes')} )
+              //      .catch(error =>  {alert('error')})
+
+          axios.post('/login', 
+                    { 
+                      username: this.username,
+                      password: this.password, 
+                    }).then((response) => {
+                      alert('success') 
+                      location.href = "http://localhost:8001/portal"
+                     //window.location.replace(response);
+                    
+                  })
+                  .catch((error) => {
+                    alert('error')
+                  })
       },
       clear () {
         this.$v.$reset()

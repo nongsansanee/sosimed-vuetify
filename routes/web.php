@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\PortalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome');
 
 Route::get('/login', function () {
     return view('login');
 });
 
+
+// Route::post('/login',function(){
+//     return "bbbbbbb";
+// });
+
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])->middleware('guest');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth')->name('logout');
+
+Route::get('/portal', PortalController::class)->middleware('auth')->name('portal');
 

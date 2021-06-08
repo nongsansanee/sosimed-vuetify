@@ -2043,7 +2043,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submit: function submit() {
-      this.$v.$touch();
+      this.$v.$touch(); //alert('aaa='+ this.username)
+      // axios.get('/welcome')
+      //      .then(response => {alert('success yes')} )
+      //      .catch(error =>  {alert('error')})
+
+      axios.post('/login', {
+        username: this.username,
+        password: this.password
+      }).then(function (response) {
+        alert('success');
+        location.href = "http://localhost:8001/portal"; //window.location.replace(response);
+      })["catch"](function (error) {
+        alert('error');
+      });
     },
     clear: function clear() {
       this.$v.$reset();
@@ -2078,6 +2091,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+window.axios.defaults.headers.common = {
+  'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+};
 vue__WEBPACK_IMPORTED_MODULE_3__.default.use((vuetify__WEBPACK_IMPORTED_MODULE_4___default()));
 vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vuelidate__WEBPACK_IMPORTED_MODULE_5__.default);
 
@@ -20068,17 +20086,6 @@ var render = function() {
                   _c(
                     "v-btn",
                     { attrs: { icon: "" } },
-                    [
-                      _c("v-icon", { attrs: { color: "orange" } }, [
-                        _vm._v("mdi-heart")
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-btn",
-                    { attrs: { icon: "" } },
                     [_c("v-icon", [_vm._v("mdi-magnify")])],
                     1
                   ),
@@ -20282,7 +20289,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                             submit\n                             "
+                              "\n                             Login\n                             "
                             )
                           ]
                         ),
