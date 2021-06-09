@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use App\Models\Application;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -24,9 +27,15 @@ class AuthenticatedSessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if ($request->has('redirectAfterAuthenticated')) {
+            $application = Application::where('url', 'like', $request->redirectAfterAuthenticated.'%')->first();
+            Session::put('redirect-to-application', $application);
+            \Log::info('has redirectAfterAuthenticated');
+        }
+        \Log::info('return login');
+        return view('login');
     }
 
     /**
@@ -54,6 +63,17 @@ class AuthenticatedSessionController extends Controller
 
         \Log::info('found user');
         Auth::login($user);
+
+        $application = Session::pull('redirect-to-application'); //pull  แล้วจะถูกลบ session นั้น เลย
+        \Log::info('application-->');
+        \Log::info($application);
+        if ($application && $user->applications->contains($application)) {
+            $response = Http::withHeaders(['token' => $application->token])
+                        ->post($application->url, ['user' => Auth::user()])
+                        ->json();
+
+            return redirect($response['redirect']);
+        }
 
         return redirect('portal');
     }
@@ -101,7 +121,7 @@ class AuthenticatedSessionController extends Controller
     public function destroy()
     {
 
-      //  \Log::info('logout');
+       \Log::info('logout');
         Auth::logout();
 
         return redirect('/login');

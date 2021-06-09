@@ -4,7 +4,7 @@
                <v-flex xs12 sm8 md6>
                   <v-card class="elevation-10">
                      <v-toolbar dark color="primary">
-                        <v-toolbar-title>เข้าสู่ระบบ</v-toolbar-title>
+                        <v-toolbar-title>ระบบสารสนเทศภาควิชาอายุรศาสตร์</v-toolbar-title>
                      </v-toolbar>
                      <div class=" red lighten-3 mt-4 ml-2 mr-2">
                       Login ด้วย Siriraj AD (ใช้ User ID และ Password เดี่ยวกับ SiIT Enterprise ปัจจุบัน)
@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import NavMenu from "../Navbars/Navbar";
 import { validationMixin } from 'vuelidate'
 import { required } from 'vuelidate/lib/validators'
 
@@ -61,30 +60,17 @@ import { required } from 'vuelidate/lib/validators'
     mixins: [validationMixin],
 
     validations: {
-      username: { required},
-      password: { required },
+     
     
     },
 
     data: () => ({
-      username: '',
-      password: '',
+    
      
     }),
 
     computed: {
-        usernameErrors () {
-            const errors = []
-            if (!this.$v.username.$dirty) return errors
-            !this.$v.username.required && errors.push('Username is required.')
-            return errors
-        },
-        passwordErrors () {
-            const errors = []
-            if (!this.$v.password.$dirty) return errors
-            !this.$v.password.required && errors.push('Password is required')
-            return errors
-        },
+      
     },
 
     methods: {
@@ -96,24 +82,22 @@ import { required } from 'vuelidate/lib/validators'
               //      .then(response => {alert('success yes')} )
               //      .catch(error =>  {alert('error')})
 
-          axios.post('/login', 
-                    { 
-                      username: this.username,
-                      password: this.password, 
-                    }).then((response) => {
-                      alert('success') 
-                      location.href = "http://localhost:8001/portal"
-                     //window.location.replace(response);
+        //   axios.post('/login', 
+        //             { 
+        //               username: this.username,
+        //               password: this.password, 
+        //             }).then((response) => {
+        //               alert('success') 
+        //               location.href = "http://localhost:8001/portal"
+                   
                     
-                  })
-                  .catch((error) => {
-                    alert('error')
-                  })
+        //           })
+        //           .catch((error) => {
+        //             alert('error')
+        //           })
       },
       clear () {
-        this.$v.$reset()
-        this.username = ''
-        this.password = ''
+       
         
       },
     },

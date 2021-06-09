@@ -8,7 +8,7 @@ class PortalController extends Controller
 {
     public function __invoke()
     {
-        return view('portal');
+        return view('portal-test');
     }
     /**
      * Display a listing of the resource.

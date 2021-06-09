@@ -77,7 +77,7 @@ class CreateUsersTable extends Migration
         $medhr = Application::create([
             'name' => 'hr',
             'label' => 'MedHR',
-            'url' => 'http://pocmapp.test/login', // post => get signed url
+            'url' => 'http://new-infomed.test/login', // post => get signed url
             'token' => 'ga8UTtZXEYwRymNWNBkoa7tZ72ERqIuxie8Z7ofcauUxmyW7NKJlIWSXNk5C0qeC',
         ]);
 

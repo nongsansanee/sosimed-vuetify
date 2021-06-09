@@ -13,8 +13,6 @@
     </div>
 
     <script src="{{ asset('/js/app.js') }}"></script>
-    <script type="text/javascript">      
-        window.csrf_token = "{{ csrf_token() }}"
-    </script>
+   
 </body>
 </html>

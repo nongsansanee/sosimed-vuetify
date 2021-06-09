@@ -55,47 +55,18 @@
                     </v-list>
                 </v-menu>
             </div>
-            <!-- <template v-slot:extension >
+            <template v-slot:extension >
                 <v-tabs align-with-title class="d-none d-md-block">
                     <v-tab>Click Me 1</v-tab>
                     <v-tab>Click Me 2</v-tab>
                     <v-tab>Click Me 3</v-tab>
                 </v-tabs>
-            </template> -->
+            </template>
         </v-app-bar>
          </v-card>
 
-        <v-main>
+        <!-- <v-main>
             <loginPage></loginPage>
-        </v-main>
-        <v-content>
-        </v-content>
+        </v-main> -->
     </v-app>
 </template>
-
-<script>
-import loginPage from "./Login";
-
-export default {
-  name: "App",
-  data() {
-    return {
-      isLogin: true,
-      items: [
-        { title: "Click Me 1" },
-        { title: "Click Me 2" },
-        { title: "Click Me 3" },
-      ],
-    };
-  },
-  components: {
-    loginPage,
-  },
-  methods: {},
-};
-</script>
-<style scoped>
-.body-margin {
-  margin: 10px;
-}
-</style>
